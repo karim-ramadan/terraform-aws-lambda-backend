@@ -65,7 +65,7 @@ resource "aws_apigatewayv2_stage" "this" {
       status                  = "$context.status"
       responseLength          = "$context.responseLength"
       integrationErrorMessage = "$context.integrationErrorMessage"
-    }
+      }
     )
   }
 }
