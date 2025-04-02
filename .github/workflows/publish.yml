@@ -1,0 +1,37 @@
+name: Publish to Terraform Registry
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
+
+      - name: Publish Module
+        run: |
+          # Login to Terraform Registry
+          cat > ~/.terraformrc <<EOF
+          credentials "${{ secrets.TF_REGISTRY_HOSTNAME }}" {
+            token = "${{ secrets.TF_REGISTRY_TOKEN }}"
+          }
+          EOF
+
+          # Initialize and publish
+          terraform init
+          terraform login
+          terraform registry publish \
+            --namespace [YOUR-ORG-NAME] \
+            --name [MODULE-NAME] \
+            --provider [PROVIDER-NAME] \
+            --version ${{ github.event.release.tag_name }}
+        env:
+          TF_REGISTRY_HOSTNAME: ${{ secrets.TF_REGISTRY_HOSTNAME }}
