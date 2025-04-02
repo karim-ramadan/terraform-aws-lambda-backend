@@ -1,26 +1,22 @@
-variable region {
-  type        = string
-  description = "AWS Region"
-}
-
-variable application_name {
+variable "application_name" {
   type        = string
   description = "Application name"
 }
 
-variable handler {
+variable "handler" {
   type        = string
   description = "Lambda function handler"
 }
 
-variable runtime {
-  type        = string
-  description = "Lambda funtion runtime"
-  nullable    = true
-  default     = null
-}
+# TODO allow custom runtime
+# variable "runtime" {
+#   type        = string
+#   description = "Lambda funtion runtime"
+#   nullable    = true
+#   default     = null
+# }
 
-variable image_uri {
+variable "image_uri" {
   type        = string
   description = "Lambda image uri"
   nullable    = true
@@ -31,11 +27,12 @@ variable "environment_variables" {
   type = map(string)
 }
 
-variable source_code_hash {
-  type     = string
-  nullable = true
-  default  = null
-}
+# TODO allow source code hash
+# variable "source_code_hash" {
+#   type     = string
+#   nullable = true
+#   default  = null
+# }
 
 variable "timeout_seconds" {
   type    = number

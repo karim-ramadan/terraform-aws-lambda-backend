@@ -1,8 +1,3 @@
-variable "region" {
-  type        = string
-  description = "The AWS region where resources will be deployed."
-}
-
 variable "application_name" {
   type        = string
   description = "The name of the application, used for resource naming and organization."
@@ -13,12 +8,13 @@ variable "handler" {
   description = "The entry point for the Lambda function (e.g., 'index.handler' for Node.js runtimes)."
 }
 
-variable "lambda_runtime" {
-  type        = string
-  description = "The runtime environment for the Lambda function (e.g., 'nodejs18.x', 'python3.9')."
-  nullable    = true
-  default     = null
-}
+# TODO allow custom runtime
+# variable "lambda_runtime" {
+#   type        = string
+#   description = "The runtime environment for the Lambda function (e.g., 'nodejs18.x', 'python3.9')."
+#   nullable    = true
+#   default     = null
+# }
 
 variable "image_uri" {
   type        = string
@@ -47,12 +43,13 @@ variable "environment_variables" {
   description = "A map of environment variables to be injected into the Lambda function."
 }
 
-variable "source_code_hash" {
-  type        = string
-  description = "A base64-encoded SHA256 hash of the Lambda deployment package, used to trigger updates when code changes."
-  nullable    = true
-  default     = null
-}
+# TODO allow custom runtime
+# variable "source_code_hash" {
+#   type        = string
+#   description = "A base64-encoded SHA256 hash of the Lambda deployment package, used to trigger updates when code changes."
+#   nullable    = true
+#   default     = null
+# }
 
 variable "provisioned_concurrency" {
   type        = number
