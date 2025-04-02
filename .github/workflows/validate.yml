@@ -1,30 +1,48 @@
-name: Terraform Validation
+name: Terraform Quality Checks
 
-on:
-  push:
-    branches: [ "**" ]  # Runs on all branches
-  pull_request:
-    branches: [ "main" ]
+on: [ push, pull_request ]
 
 jobs:
-  validate:
-    name: Validate Terraform
+  quality:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+      - uses: hashicorp/setup-terraform@v2
 
-      - name: Terraform Format Check
-        id: fmt
-        run: terraform fmt -check -recursive
+      - name: Check documentation
+        run: |
+          if [ ! -f README.md ]; then
+            echo "❌ Missing README.md"
+            exit 1
+          fi
+          if [ ! -f LICENSE ]; then
+            echo "❌ Missing LICENSE file"
+            exit 1
+          fi
 
-      - name: Terraform Init
-        id: init
-        run: terraform init
+      - name: Check file structure
+        run: |
+          required_files=("main.tf" "variables.tf" "outputs.tf")
+          for file in "${required_files[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "❌ Missing required file: $file"
+              exit 1
+            fi
+          done
 
-      - name: Terraform Validate
-        id: validate
+      - name: Terraform fmt
+        run: terraform fmt -check -recursive -diff
+
+      - name: Terraform init
+        run: terraform init -backend=false
+
+      - name: Terraform validate
         run: terraform validate -no-color
+
+      - name: Check for sensitive data
+        run: |
+          if grep -r --include="*.tf" "password\|secret\|key" .; then
+            echo "❌ Potential sensitive data found"
+            exit 1
+          fi
