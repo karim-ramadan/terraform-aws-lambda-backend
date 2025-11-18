@@ -1,7 +1,9 @@
 output "iam_role" {
-  value = aws_iam_role.lambda_execution_role
+  description = "The IAM role used by the Lambda function for execution"
+  value       = aws_iam_role.lambda_execution_role
 }
 
 output "function" {
-  value = aws_lambda_function.this
+  description = "The Lambda function resource"
+  value       = aws_lambda_function.this
 }
