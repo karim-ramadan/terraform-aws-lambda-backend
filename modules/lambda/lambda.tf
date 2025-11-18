@@ -27,11 +27,12 @@ resource "aws_lambda_function" "this" {
     aws_iam_role_policy_attachment.lambda_logs,
     aws_cloudwatch_log_group.lambda_cloudwatch_group,
   ]
-  memory_size  = var.memory_size
-  package_type = "Image"
-  image_uri    = var.image_uri
-  timeout      = var.timeout_seconds
-  publish      = true # Necessary for provisioned concurrency
+  memory_size      = var.memory_size
+  package_type     = "Image"
+  image_uri        = var.image_uri
+  source_code_hash = var.source_code_hash
+  timeout          = var.timeout_seconds
+  publish          = true # Necessary for provisioned concurrency
 
   image_config {
     command = [var.handler]
