@@ -1,5 +1,5 @@
 module "lambda" {
-  source                  = "../lambda"
+  source                  = "./modules/lambda"
   application_name        = var.application_name
   environment_variables   = var.environment_variables
   handler                 = var.handler

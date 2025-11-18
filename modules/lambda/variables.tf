@@ -28,23 +28,28 @@ variable "image_uri" {
 }
 
 variable "environment_variables" {
-  type = map(string)
+  type        = map(string)
+  description = "A map of environment variables for the Lambda function"
+  default     = {}
 }
 
 variable "source_code_hash" {
-  type     = string
-  nullable = true
-  default  = null
+  type        = string
+  nullable    = true
+  default     = null
+  description = "A base64-encoded SHA256 hash of the Lambda deployment package for update tracking"
 }
 
 variable "timeout_seconds" {
-  type    = number
-  default = 60
+  type        = number
+  default     = 60
+  description = "The maximum duration in seconds that the Lambda function can run before timing out"
 }
 
 variable "log_retention_days" {
-  type    = number
-  default = 14
+  type        = number
+  default     = 14
+  description = "The number of days to retain logs in CloudWatch Logs for the Lambda function"
 }
 
 variable "memory_size" {
