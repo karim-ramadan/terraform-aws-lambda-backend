@@ -28,25 +28,31 @@ variable "image_uri" {
 }
 
 variable "domain_to_certificate" {
-  type = string
+  type        = string
+  description = "The domain name for which an SSL certificate will be issued"
 }
 
 variable "top_level_domain" {
-  type = string
+  type        = string
+  description = "The top-level domain (TLD) associated with domain_to_certificate"
 }
 
 variable "secret_name" {
-  type = string
+  type        = string
+  description = "The name of the AWS Secrets Manager secret used by the application"
 }
 
 variable "environment_variables" {
-  type = map(string)
+  type        = map(string)
+  description = "A map of environment variables for the Lambda function"
+  default     = {}
 }
 
 variable "source_code_hash" {
-  type     = string
-  nullable = true
-  default  = null
+  type        = string
+  nullable    = true
+  default     = null
+  description = "A base64-encoded SHA256 hash of the Lambda deployment package for update tracking"
 }
 
 variable "provisioned_concurrency" {
