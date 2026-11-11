@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.1.0
+
+- `permissions_boundary`: attach a permissions boundary to the execution role (root module and `modules/lambda`), for deploy roles that may only create bounded roles.
+
 ## v2.0.0
 
 ### Breaking

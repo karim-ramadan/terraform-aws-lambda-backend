@@ -69,6 +69,7 @@ REST API access logs need the account-wide API Gateway CloudWatch role
 | `provisioned_concurrency` | `number` | `0` | Provisioned concurrency on the `live` alias. |
 | `reserved_concurrency` | `number` | `-1` | Reserved concurrency (`-1` = unreserved). |
 | `vpc_config` | `object` | `null` | `{ subnet_ids, security_group_ids }` to run in a VPC. |
+| `permissions_boundary` | `string` | `null` | Permissions boundary ARN for the execution role. |
 | `response_streaming` | `bool` | `false` | Stream responses (see above). |
 | `integration_timeout_milliseconds` | `number` | `null` | Override the integration timeout (default 29000, or the function timeout with streaming). |
 | `binary_media_types` | `list(string)` | `[]` | Content types API Gateway treats as binary. |
