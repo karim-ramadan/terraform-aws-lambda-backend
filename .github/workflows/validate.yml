@@ -15,13 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: hashicorp/setup-terraform@v2
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.14.0"
+          terraform_wrapper: false
 
-      - name: Terraform fmt
-        run: terraform fmt -check -recursive -diff
-
-      - name: Terraform init
-        run: terraform init -backend=false
-
-      - name: Terraform validate
-        run: terraform validate -no-color
+      # fmt, validate (module, submodules, examples) and terraform test with a mocked provider
+      - name: Validate
+        run: ./scripts/validate.sh

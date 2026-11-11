@@ -102,6 +102,20 @@ else
 fi
 
 echo ""
+print_info "Validating examples..."
+
+for example in examples/*/; do
+    [ -d "$example" ] || continue
+    EXAMPLE_NAME=$(basename "$example")
+    if (cd "$example" && terraform init -backend=false -input=false &> /dev/null && terraform validate &> /dev/null); then
+        print_success "  Validation passed (examples/$EXAMPLE_NAME)"
+    else
+        print_error "  Validation failed (examples/$EXAMPLE_NAME)"
+        (cd "$example" && terraform init -backend=false -input=false && terraform validate)
+    fi
+done
+
+echo ""
 print_info "Running tests..."
 
 # Run Terraform tests if test files exist
