@@ -7,3 +7,8 @@ output "function" {
   description = "The Lambda function resource"
   value       = aws_lambda_function.this
 }
+
+output "alias" {
+  description = "The alias callers should invoke (carries the provisioned concurrency)"
+  value       = aws_lambda_alias.this
+}
