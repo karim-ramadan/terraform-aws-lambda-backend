@@ -71,6 +71,12 @@ variable "vpc_config" {
   description = "Runs the function inside a VPC when set"
 }
 
+variable "permissions_boundary" {
+  type        = string
+  default     = null
+  description = "ARN of the permissions boundary attached to the execution role"
+}
+
 variable "tags" {
   type        = map(string)
   default     = {}

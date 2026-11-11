@@ -134,6 +134,12 @@ variable "access_log_retention_days" {
   description = "Retention of the API Gateway access logs"
 }
 
+variable "permissions_boundary" {
+  type        = string
+  default     = null
+  description = "ARN of a permissions boundary for the execution role (needed when the deploying role may only create bounded roles)"
+}
+
 variable "tags" {
   type        = map(string)
   default     = {}

@@ -99,6 +99,12 @@ run "provisioned_concurrency_on_alias" {
 
   variables {
     provisioned_concurrency = 2
+    permissions_boundary    = "arn:aws:iam::123456789012:policy/boundary"
+  }
+
+  assert {
+    condition     = aws_iam_role.lambda_execution_role.permissions_boundary == "arn:aws:iam::123456789012:policy/boundary"
+    error_message = "The execution role carries the permissions boundary"
   }
 
   assert {

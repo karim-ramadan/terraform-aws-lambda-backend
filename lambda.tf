@@ -11,5 +11,6 @@ module "lambda" {
   provisioned_concurrency = var.provisioned_concurrency
   reserved_concurrency    = var.reserved_concurrency
   vpc_config              = var.vpc_config
+  permissions_boundary    = var.permissions_boundary
   tags                    = var.tags
 }
